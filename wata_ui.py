@@ -60,8 +60,8 @@ h1, h2, h3, p, label, span, div {{ color: {INK}; }}
 
 .wata-hero {{ background: {BURGUNDY}; border-radius: 18px; padding: 22px 26px; margin-bottom: 18px;
   box-shadow: 0 6px 18px rgba(74,16,36,.25); }}
-.wata-hero h1 {{ color: {BEIGE} !important; margin: 0; font-size: 2.2rem; letter-spacing: .5px; }}
-.wata-hero p {{ color: {BEIGE_DARK} !important; margin: 4px 0 0 0; font-size: 1rem; }}
+.wata-hero h1, .wata-hero h1 * {{ color: {BEIGE} !important; margin: 0; font-size: 2.2rem; letter-spacing: .5px; }}
+.wata-hero p, .wata-hero p * {{ color: {BEIGE_DARK} !important; margin: 4px 0 0 0; font-size: 1rem; }}
 
 .stButton > button {{ background: {CREAM}; color: {BURGUNDY}; border: 1.5px solid {BURGUNDY};
   border-radius: 999px; font-weight: 600; transition: all .15s; }}
@@ -72,12 +72,16 @@ h1, h2, h3, p, label, span, div {{ color: {INK}; }}
   border: 1px solid rgba(109,26,54,.15); }}
 [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {{ background: {BURGUNDY}; }}
 [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) * {{ color: {BEIGE} !important; }}
+[data-testid="stChatMessage"] code {{ background: {CREAM} !important; color: {BURGUNDY} !important; }}
 [data-testid="stChatMessageAvatarAssistant"] {{ background: {BURGUNDY}; color: {BEIGE}; }}
 [data-testid="stChatMessageAvatarUser"] {{ background: {BEIGE}; }}
 
 [data-testid="stChatInput"] {{ background: {CREAM}; border: 2px solid {BURGUNDY}; border-radius: 14px; }}
-[data-testid="stChatInput"] textarea {{ color: {INK}; background: {CREAM}; }}
-[data-testid="stChatInput"] button {{ background: {BURGUNDY}; color: {BEIGE}; }}
+[data-testid="stChatInput"] *, [data-testid="stChatInput"] textarea {{ background-color: {CREAM} !important; color: {INK} !important; }}
+[data-testid="stChatInput"] textarea::placeholder {{ color: #8a6a70 !important; }}
+[data-testid="stChatInput"] button {{ background-color: {BURGUNDY} !important; }}
+[data-testid="stChatInput"] button svg {{ color: {BEIGE} !important; fill: {BEIGE} !important; }}
+code {{ background: {CREAM} !important; color: {BURGUNDY} !important; border-radius: 6px; padding: 1px 6px; }}
 [data-testid="stBottom"], [data-testid="stBottom"] > div {{ background: {BEIGE}; }}
 
 [data-testid="stExpander"] {{ background: {CREAM}; border: 1px solid rgba(109,26,54,.3); border-radius: 12px; }}
@@ -90,12 +94,15 @@ a {{ color: {BURGUNDY}; }}
 HIDE_SIDEBAR = """
 <style>
 [data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"],
-[data-testid="collapsedControl"], [data-testid="stSidebarNav"] { display: none !important; }
+[data-testid="collapsedControl"], [data-testid="stSidebarNav"], section[data-testid="stSidebar"] {
+  display: none !important; width: 0 !important; min-width: 0 !important; }
+[data-testid="stAppViewContainer"] > section:first-child { display: none !important; }
+[data-testid="stMain"], section.main { margin-left: 0 !important; }
 </style>
 """
 
 
-def render(hide_sidebar=False):
+def render(hide_sidebar=True):
     st.markdown(CSS, unsafe_allow_html=True)
     if hide_sidebar:
         st.markdown(HIDE_SIDEBAR, unsafe_allow_html=True)
