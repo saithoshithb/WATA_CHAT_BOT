@@ -6,8 +6,8 @@ Needs only:   wata_app.py, wata_ui.py, chatbot_logic.py and requirements.txt (st
 """
 import streamlit as st
 
-st.set_page_config(page_title="Wata", page_icon="💧", layout="centered")
+st.set_page_config(page_title="Wata", page_icon="💧", layout="centered", initial_sidebar_state="collapsed")
 
 import wata_ui
 
-wata_ui.render()
+wata_ui.render(hide_sidebar=True)
